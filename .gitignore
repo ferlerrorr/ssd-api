@@ -1,0 +1,7 @@
+/node_modules
+/public/hot
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+NUL
