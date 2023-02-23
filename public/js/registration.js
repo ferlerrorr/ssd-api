@@ -34,12 +34,12 @@ let headersList = {
    localStorage.setItem("response",data)
    setText();
 
-   if(response.status == 200)
-   {
-    setTimeout(function() {
-      window.open("http://localhost:90/token");
-  },1200);
-   }
+  //  if(response.status == 200)
+  //  {
+  //   setTimeout(function() {
+  //     window.open("http://localhost:90/token");
+  // },1200);
+  //  }
   
 }
 

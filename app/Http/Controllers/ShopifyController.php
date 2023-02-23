@@ -111,10 +111,27 @@ class ShopifyController extends Controller
         //  * Get Product Variant Quantity. 
         $inventory_quantity = $variant['inventory_quantity'];
 
-        //  * Response Object. 
+        $price = $variant['price'];
+        
+        $comprice = $variant['compare_at_price'];
+
+
+        if($comprice <= $price ){
+
+           $cprice = 0;
+        }else{
+
+            $cprice = $comprice;
+
+        };
+
+
+         // Response Object. 
         $response = [
             'variant_id' => $variant_id,
-            'inventory_quantity' => $inventory_quantity
+            'inventory_quantity' => $inventory_quantity,
+            'price' => $price,
+            'compare_at_price' => $cprice
         ];
 		
 		ob_flush();

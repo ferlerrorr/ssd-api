@@ -72,6 +72,9 @@ return [
         ],
     ],
 
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Global "From" Address
@@ -84,8 +87,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'fjohn.d.javier@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Ferl John Javier'),
     ],
 
     /*

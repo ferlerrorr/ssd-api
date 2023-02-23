@@ -1,11 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Mail\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Tymon\JWTAuth\Providers\Auth\Illuminate;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+
 
 class AuthController extends Controller
 {
@@ -16,7 +21,7 @@ class AuthController extends Controller
     */
     public function __construct()
     {
-        $this->middleware('auth:api',['except'=>['token','register']]);
+        $this->middleware('auth:api',['except'=>['token','register','verify']]);
     }
 
     /**
@@ -40,16 +45,25 @@ class AuthController extends Controller
         
             return response($invalid_fields,400);
 				
-			//will return 200 ok if flushed
         }
 
-        //$user unused 
+
+              //$user unused 
         //add the token for input and monitoring and to unsigned
         $user = User::create(array_merge(
             $validator->validated(),
             ['password'=>bcrypt($request->password)]
          ));
 
+         $email =$request->email;
+
+
+        Mail::send('emails.welcome', ['email' => $email], function ($m) use ($email) {
+            $m->from('ssd.shopify.api@gmail.com', 'SouthStar API');
+            $m->to($email, 'admin')->subject('SSD API Email Verification');
+    });  
+         
+         
 		ob_flush();
 		flush();
 		// if you're using sessions, this prevents subsequent requests
@@ -58,8 +72,10 @@ class AuthController extends Controller
 
 
          return response()->json([
-            ['User Successfully Created']
+            ['User Successfully Created'] , ['Please Check Your Email For Verifiation']
          ]);
+        // return response()->json("Basic Email Sent. Check your inbox.");
+        
 
     }
 
@@ -78,84 +94,101 @@ class AuthController extends Controller
         'password' => 'required|string|min:6'
     ]);
          
-   
+
     if($validator->fails()){
         // return response()->json($validator->errors()->toJson(),422);
         $invalid_fields = array_values($validator->errors()->toArray());
         return response($invalid_fields,400);
 		//will return 200 ok if flushed
     }
-      
-  
 
     if(!$token=auth()->attempt($validator->validated())){
-        return response()->json(['error'=>'Unauthorized'],401);
-		//will return 200 ok if flushed
+        $erro =  [ ["User Unauthorized"] ];
+
+        return response()->json($erro,400);
+
     }
-          
+
+    $em = $request->email;
+
    
-    $auth_id = auth()->user()->id;
-    $user = User::where('id' , $auth_id);
+    $email = User::where('email', $em)->first();
 
- 
-    $data = $this->createNewToken($token);
+    if($email['email_verified_at'] == null){
 
-    $tok = $data['access_token'];
 
-    $user->update([
-        'active_token' => $tok
-    ]);
+        $erro =  [ ["Please check your email for verification"] ];
 
-		ob_flush();
-		flush();
-		// if you're using sessions, this prevents subsequent requests
-		// from hanging while the background process executes
-		if (session_id()) {session_write_close();}
+        return response()->json($erro,400);
 
-	if($token=auth() == true){
-        auth()->logout();
-    }
 
-    $validator = Validator::Make($request->all(),[
-        'email' => 'required|email',
-        'password' => 'required|string|min:6'
-    ]);
-         
-   
-    if($validator->fails()){
-        // return response()->json($validator->errors()->toJson(),422);
-        $invalid_fields = array_values($validator->errors()->toArray());
-        return response($invalid_fields,400);
-		//will return 200 ok if flushed
-    }
-      
+    }else{
   
-
-    if(!$token=auth()->attempt($validator->validated())){
-        return response()->json(['error'=>'Unauthorized'],401);
-		//will return 200 ok if flushed
-    }
+      
+        $auth_id = auth()->user()->id;
+        $user = User::where('id' , $auth_id);
+    
+     
+        $data = $this->createNewToken($token);
+    
+        $tok = $data['access_token'];
+    
+        $user->update([
+            'active_token' => $tok
+        ]);
+    
+        	ob_flush();
+        	flush();
+        	// if you're using sessions, this prevents subsequent requests
+        	// from hanging while the background process executes
+        	if (session_id()) {session_write_close();}
+    
+        if($token=auth() == true){
+            auth()->logout();
+        }
+    
+        $validator = Validator::Make($request->all(),[
+            'email' => 'required|email',
+            'password' => 'required|string|min:6'
+        ]);
+             
+       
+        if($validator->fails()){
+            // return response()->json($validator->errors()->toJson(),422);
+            $invalid_fields = array_values($validator->errors()->toArray());
+            return response($invalid_fields,400);
+        	//will return 200 ok if flushed
+        }
           
-   
-    $auth_id = auth()->user()->id;
-    $user = User::where('id' , $auth_id);
+      
+    
+        if(!$token=auth()->attempt($validator->validated())){
+            return response()->json(['error'=>'Unauthorized'],401);
+        	//will return 200 ok if flushed
+        }
+              
+       
+        $auth_id = auth()->user()->id;
+        $user = User::where('id' , $auth_id);
+    
+     
+        $data = $this->createNewToken($token);
+    
+        $tok = $data['access_token'];
+    
+        $user->update([
+            'active_token' => $tok
+        ]);
+    
+        	ob_flush();
+        	flush();
+        	// if you're using sessions, this prevents subsequent requests
+        	// from hanging while the background process executes
+        	if (session_id()) {session_write_close();}
+    
+        return response()->json($data);
 
- 
-    $data = $this->createNewToken($token);
-
-    $tok = $data['access_token'];
-
-    $user->update([
-        'active_token' => $tok
-    ]);
-
-		ob_flush();
-		flush();
-		// if you're using sessions, this prevents subsequent requests
-		// from hanging while the background process executes
-		if (session_id()) {session_write_close();}
-
-    return response()->json($data);
+    }
     }
 
     /**
@@ -208,5 +241,27 @@ class AuthController extends Controller
          ]);
     }
 
+
+          /**
+    * ! Email Verified Function.
+    * * Display the specific user details.
+    * @param  $token
+    * @return \Illuminate\Http\Response
+   */
+  public function verify($email){
+
+
+    $em = $email;
+
+    $time = Carbon::now();
+    $user = User::where('email', $em);
+    
+    $user->update([
+       'email_verified_at' => $time
+   ]);
+
+   return redirect('/token');
+
+   }
 
 }

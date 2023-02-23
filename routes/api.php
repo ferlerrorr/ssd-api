@@ -51,7 +51,9 @@ Route::group(['middleware'=>'api','prefix'=>'admin'],function($router){
     Route::post('/register',[AuthController::class,'register']);
     Route::post('/token-access',[AuthController::class,'token']);
     Route::post('/logout',[AuthController::class,'logout']);
+    Route::get('/verify/{email}',[AuthController::class,'verify']);
     // Route::get('/profile',[AuthController::class,'profile']);
+   
     
     // ------------SSDController---------------
     Route::get('/sdd/all-products',[App\Http\Controllers\ProductController::class,'index']);
@@ -64,9 +66,15 @@ Route::group(['middleware'=>'api','prefix'=>'admin'],function($router){
 
 
 
-    
+
+
+
+ 
     // ------------SSDController----------------
     // Route::resource('/ssd/allproducts', App\Http\Controllers\SSDController::class)->only([
     //     'index'
     // ]);
+    
+
+
     

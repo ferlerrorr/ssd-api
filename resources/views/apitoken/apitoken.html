@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="{{URL::asset('css/apitoken1.css');}}" />
     <link rel="stylesheet" href="{{URL::asset('css/style.css');}}" />
     <link rel="stylesheet" href="{{URL::asset('css/modal.css');}}" />
-    <title>Document</title>
+    <title>Southstar API</title>
+    <link rel="icon" type="image/x-icon" href="{{URL::asset('fav.png');}}">
 
 </head>
 <body>
@@ -27,7 +28,7 @@
             <div style="display:flex; gap: 10px;">
             <button class="btn btn-register " type="submit" onclick="generate()" >Generate Token</button>
             <button class="btn btn-logout btn trigger " type="submit" for="modal-toggle" href="javascript:;" style="color:#555" >Re-Generate Access Token</button>
-
+           
               
               <style>
                 .token{
@@ -41,7 +42,14 @@
               </style>
               
             </div>
-
+            <div style="height: 20vh; display: flex; justify-content: center; flex-direction: column;">
+              <div class="res" for="response" id="res">
+              </div>
+              <div class="res1" for="response" id="res1">
+              </div>
+              <div class="res2" for="response" id="res2">
+              </div>
+          </div>
 
 
     </div>

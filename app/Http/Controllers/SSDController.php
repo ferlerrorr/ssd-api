@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Signifly\Shopify\Shopify;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Products;
+use App\Models\User;
+use Carbon\Carbon;
 
 class SSDController extends Controller
 {
@@ -13,10 +15,15 @@ class SSDController extends Controller
      * ! Auth Middleware.
      * * Middleware for checking the Authentication of user.
     */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
+
+  
+
+
 
     /**
      * ! DISPLAY ALL PRODUCTS CONTROLLER.
