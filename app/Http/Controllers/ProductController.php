@@ -128,10 +128,10 @@ class ProductController extends Controller
         // if ($beartoken == "Bearer $actvtoken") {
             // * Search Query Search Mulltiple Table For Pattern
             $products = Products::where('generic_name', 'LIKE', "%$slug%")
+                ->orWhere('keywords', 'LIKE', "%$slug%")   
+                ->orWhere('category', 'LIKE', "%$slug%") 
                 ->orWhere('grams', 'LIKE', "%$slug%")
-                ->orWhere('product_name', 'LIKE', "%$slug%")
-                ->orWhere('category', 'LIKE', "%$slug%")
-                ->orWhere('keywords', 'LIKE', "%$slug%")
+                // ->orWhere('product_name', 'LIKE', "%$slug%")
                 ->orderBy('level', 'DESC')->limit(3)
                 ->get();
 
@@ -251,6 +251,88 @@ class ProductController extends Controller
 
         return response()->json($res, 400);
     }
+
+
+
+    public function search( $generic_name, $product)
+    {
+        // $headers = apache_request_headers();
+        // $beartoken = $headers['Authorization'];
+        // $actvtoken = auth()->user()->active_token;
+
+
+        // if ($beartoken == "Bearer $actvtoken") {
+            // * Search Query Search Mulltiple Table For Pattern
+            $products = Products::where('generic_name', 'LIKE', "%$generic_name%")
+            ->where('keywords', 'LIKE', "%$product%")->limit(10)
+             ->orWhere('product_name', 'LIKE', "%$product%")
+             ->get();
+
+
+            // * Error Handler If Empty
+            if ($products->isEmpty()) {
+
+                $response =  [
+
+                    ['Msg' => 'Product Not Found']
+
+                ];
+
+
+                // if you're using sessions, this prevents subsequent requests
+                // from hanging while the background process executes
+                if (session_id()) {
+                    session_write_close();
+                }
+                ob_flush();
+                flush();
+                // if you're using sessions, this prevents subsequent requests
+                // from hanging while the background process executes
+                if (session_id()) {
+                    session_write_close();
+                }
+
+
+                return ($response);
+            }
+
+            ob_flush();
+            flush();
+            // if you're using sessions, this prevents subsequent requests
+            // from hanging while the background process executes
+            if (session_id()) {
+                session_write_close();
+            }
+
+            return ($products);
+        // } else {
+
+        //     $mg = [
+        //         "Msg" => "Auth Token Not Valid"
+        //     ];
+
+        //     return response()->json($mg, 400);
+        // }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // ! Controllers Not in use for now ----------------------------------------------------------------------------->
 

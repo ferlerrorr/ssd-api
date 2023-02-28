@@ -26,6 +26,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //!Public Route for Search
 Route::get('product/search-products/{slug}','App\Http\Controllers\ProductController@show');
 
+Route::get('product/search-products/{generic_name}/{product}','App\Http\Controllers\ProductController@search');
+
 
 //!Must be Hidden/Admin Route 
 Route::group(['middleware'=>'api','prefix'=>'admin'],function($router){
