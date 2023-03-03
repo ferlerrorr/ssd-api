@@ -51,13 +51,13 @@ class ProductController extends Controller
             $products = Products::orderBy('level', 'DESC')->paginate(10);
 
 
-            ob_flush();
-            flush();
-            // if you're using sessions, this prevents subsequent requests
-            // from hanging while the background process executes
-            if (session_id()) {
-                session_write_close();
-            }
+            // ob_flush();
+            // flush();
+            // // if you're using sessions, this prevents subsequent requests
+            // // from hanging while the background process executes
+            // if (session_id()) {
+            //     session_write_close();
+            // }
 
             //    $data = $this->paginate($products);
 
@@ -68,13 +68,13 @@ class ProductController extends Controller
                 "Msg" => "User Unauthorized"
             ];
 
-            ob_flush();
-            flush();
-            // if you're using sessions, this prevents subsequent requests
-            // from hanging while the background process executes
-            if (session_id()) {
-                session_write_close();
-            }
+            // ob_flush();
+            // flush();
+            // // if you're using sessions, this prevents subsequent requests
+            // // from hanging while the background process executes
+            // if (session_id()) {
+            //     session_write_close();
+            // }
             return response()->json($res, 400);
         }
 
@@ -146,32 +146,51 @@ class ProductController extends Controller
                 ];
 
 
-                // if you're using sessions, this prevents subsequent requests
-                // from hanging while the background process executes
-                if (session_id()) {
-                    session_write_close();
-                }
-                ob_flush();
-                flush();
-                // if you're using sessions, this prevents subsequent requests
-                // from hanging while the background process executes
-                if (session_id()) {
-                    session_write_close();
-                }
+                // // if you're using sessions, this prevents subsequent requests
+                // // from hanging while the background process executes
+                // if (session_id()) {
+                //     session_write_close();
+                // }
+                // ob_flush();
+                // flush();
+                // // if you're using sessions, this prevents subsequent requests
+                // // from hanging while the background process executes
+                // if (session_id()) {
+                //     session_write_close();
+                // }
 
 
                 return ($response);
             }
 
-            ob_flush();
-            flush();
-            // if you're using sessions, this prevents subsequent requests
-            // from hanging while the background process executes
-            if (session_id()) {
-                session_write_close();
-            }
+            // ob_flush();
+            // flush();
+            // // if you're using sessions, this prevents subsequent requests
+            // // from hanging while the background process executes
+            // if (session_id()) {
+            //     session_write_close();
+            // }
+                
+            // $res = str_replace(']', '}', $products);
+            // $res2 = str_replace('[', '{', $res);
+            
+            // $json = json_encode($res2);
+            
+            // $jsonData = stripslashes($json);
+            
+            // // $str = str_replace('"', '', $jsonData);
+                    
+            // // if the first char is a " then remove it
+            // if(strpos($jsonData,'"')===0)$jsonData=substr($jsonData,1,(strlen($jsonData)-1));
 
-            return ($products);
+            // // if the last char is a " then remove it
+            // if(strripos($jsonData,'"')===(strlen($jsonData)-1))$jsonData=substr($jsonData,0,-1);
+
+
+            $obj = json_decode (json_encode ($products), FALSE);
+
+
+            return response($obj,200);
         // } else {
 
         //     $mg = [
@@ -224,13 +243,13 @@ class ProductController extends Controller
             // * if OK save
             if ($product->save()) {
 
-                ob_flush();
-                flush();
-                // if you're using sessions, this prevents subsequent requests
-                // from hanging while the background process executes
-                if (session_id()) {
-                    session_write_close();
-                }
+                // ob_flush();
+                // flush();
+                // // if you're using sessions, this prevents subsequent requests
+                // // from hanging while the background process executes
+                // if (session_id()) {
+                //     session_write_close();
+                // }
             }
             return response()->json($product);
         }
@@ -240,13 +259,13 @@ class ProductController extends Controller
         ];
 
 
-        ob_flush();
-        flush();
-        // if you're using sessions, this prevents subsequent requests
-        // from hanging while the background process executes
-        if (session_id()) {
-            session_write_close();
-        }
+        // ob_flush();
+        // flush();
+        // // if you're using sessions, this prevents subsequent requests
+        // // from hanging while the background process executes
+        // if (session_id()) {
+        //     session_write_close();
+        // }
 
 
         return response()->json($res, 400);
@@ -279,32 +298,32 @@ class ProductController extends Controller
                 ];
 
 
-                // if you're using sessions, this prevents subsequent requests
-                // from hanging while the background process executes
-                if (session_id()) {
-                    session_write_close();
-                }
-                ob_flush();
-                flush();
-                // if you're using sessions, this prevents subsequent requests
-                // from hanging while the background process executes
-                if (session_id()) {
-                    session_write_close();
-                }
+                // // if you're using sessions, this prevents subsequent requests
+                // // from hanging while the background process executes
+                // if (session_id()) {
+                //     session_write_close();
+                // }
+                // ob_flush();
+                // flush();
+                // // if you're using sessions, this prevents subsequent requests
+                // // from hanging while the background process executes
+                // if (session_id()) {
+                //     session_write_close();
+                // }
 
 
                 return ($response);
             }
 
-            ob_flush();
-            flush();
-            // if you're using sessions, this prevents subsequent requests
-            // from hanging while the background process executes
-            if (session_id()) {
-                session_write_close();
-            }
+            // ob_flush();
+            // flush();
+            // // if you're using sessions, this prevents subsequent requests
+            // // from hanging while the background process executes
+            // if (session_id()) {
+            //     session_write_close();
+            // }
 
-            return ($products);
+            return response()->json($products,200);
         // } else {
 
         //     $mg = [

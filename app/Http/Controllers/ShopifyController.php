@@ -46,11 +46,11 @@ class ShopifyController extends Controller
 		
 		
 		
-		ob_flush();
-		flush();
-		// if you're using sessions, this prevents subsequent requests
-		// from hanging while the background process executes
-		if (session_id()) {session_write_close();}
+		// ob_flush();
+		// flush();
+		// // if you're using sessions, this prevents subsequent requests
+		// // from hanging while the background process executes
+		// if (session_id()) {session_write_close();}
 		
 		
         return response()->json($results);
@@ -60,11 +60,11 @@ class ShopifyController extends Controller
                 "User" => "Unauthorized"
             ];
             
-            ob_flush();
-            flush();
-            // if you're using sessions, this prevents subsequent requests
-            // from hanging while the background process executes
-            if (session_id()) {session_write_close();}
+            // ob_flush();
+            // flush();
+            // // if you're using sessions, this prevents subsequent requests
+            // // from hanging while the background process executes
+            // if (session_id()) {session_write_close();}
             
             return response()->json($res,400);
         }
@@ -104,7 +104,7 @@ class ShopifyController extends Controller
 
         //  * Get Product Variant First key[0]. 
         $variant = $product->variants[0];
-
+        $images = $product->image['src'];
         //  * Get Product Variant id. 
         $variant_id = $variant['id'];
 
@@ -115,6 +115,7 @@ class ShopifyController extends Controller
         
         $comprice = $variant['compare_at_price'];
 
+        $product_name = $product["title"];
 
         if($comprice <= $price ){
 
@@ -128,17 +129,19 @@ class ShopifyController extends Controller
 
          // Response Object. 
         $response = [
+            'image' => $images,
+            'product_name' => $product_name,
             'variant_id' => $variant_id,
             'inventory_quantity' => $inventory_quantity,
             'price' => $price,
             'compare_at_price' => $cprice
         ];
 		
-		ob_flush();
-		flush();
-		// if you're using sessions, this prevents subsequent requests
-		// from hanging while the background process executes
-		if (session_id()) {session_write_close();}
+		// ob_flush();
+		// flush();
+		// // if you're using sessions, this prevents subsequent requests
+		// // from hanging while the background process executes
+		// if (session_id()) {session_write_close();}
 			
 	
         //  * Return Response Object -> Json. 

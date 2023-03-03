@@ -9,10 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
+        "barryvdh/laravel-cors": "^3.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^8.0",
+        "laravel/passport": "^10.0",
         "laravel/sail": "^1.19",
         "laravel/tinker": "^2.0",
         "signifly/laravel-shopify": "^1.2",

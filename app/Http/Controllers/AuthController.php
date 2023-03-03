@@ -64,11 +64,11 @@ class AuthController extends Controller
     });  
          
          
-		ob_flush();
-		flush();
-		// if you're using sessions, this prevents subsequent requests
-		// from hanging while the background process executes
-		if (session_id()) {session_write_close();}
+		// ob_flush();
+		// flush();
+		// // if you're using sessions, this prevents subsequent requests
+		// // from hanging while the background process executes
+		// if (session_id()) {session_write_close();}
 
 
          return response()->json([
@@ -137,11 +137,11 @@ class AuthController extends Controller
             'active_token' => $tok
         ]);
     
-        	ob_flush();
-        	flush();
-        	// if you're using sessions, this prevents subsequent requests
-        	// from hanging while the background process executes
-        	if (session_id()) {session_write_close();}
+        	// ob_flush();
+        	// flush();
+        	// // if you're using sessions, this prevents subsequent requests
+        	// // from hanging while the background process executes
+        	// if (session_id()) {session_write_close();}
     
         if($token=auth() == true){
             auth()->logout();
@@ -180,11 +180,11 @@ class AuthController extends Controller
             'active_token' => $tok
         ]);
     
-        	ob_flush();
-        	flush();
-        	// if you're using sessions, this prevents subsequent requests
-        	// from hanging while the background process executes
-        	if (session_id()) {session_write_close();}
+        	// ob_flush();
+        	// flush();
+        	// // if you're using sessions, this prevents subsequent requests
+        	// // from hanging while the background process executes
+        	// if (session_id()) {session_write_close();}
     
         return response()->json($data);
 
