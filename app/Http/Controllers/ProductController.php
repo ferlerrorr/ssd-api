@@ -51,50 +51,18 @@ class ProductController extends Controller
             $products = Products::orderBy('level', 'DESC')->paginate(10);
 
 
-            // ob_flush();
-            // flush();
-            // // if you're using sessions, this prevents subsequent requests
-            // // from hanging while the background process executes
-            // if (session_id()) {
-            //     session_write_close();
-            // }
-
-            //    $data = $this->paginate($products);
-
-
+       
+            flush();
             return response()->json($products);
         } else {
             $res = [
                 "Msg" => "User Unauthorized"
             ];
-
-            // ob_flush();
-            // flush();
-            // // if you're using sessions, this prevents subsequent requests
-            // // from hanging while the background process executes
-            // if (session_id()) {
-            //     session_write_close();
-            // }
+            flush();
             return response()->json($res, 400);
         }
 
-
-
-        // }else{
-
-        //     $mg = [
-        //         "Msg" => "Auth Token Not Valid"
-        //     ];
-
-
-        //     ob_flush();
-        //     flush();
-        //     // if you're using sessions, this prevents subsequent requests
-        //     // from hanging while the background process executes
-        //     if (session_id()) {session_write_close();}
-        //     return response()->json($mg,400);
-        // }
-
+       
     }
 
     /**
@@ -145,60 +113,17 @@ class ProductController extends Controller
 
                 ];
 
-
-                // // if you're using sessions, this prevents subsequent requests
-                // // from hanging while the background process executes
-                // if (session_id()) {
-                //     session_write_close();
-                // }
-                // ob_flush();
-                // flush();
-                // // if you're using sessions, this prevents subsequent requests
-                // // from hanging while the background process executes
-                // if (session_id()) {
-                //     session_write_close();
-                // }
-
-
+                flush();
                 return ($response);
             }
 
-            // ob_flush();
-            // flush();
-            // // if you're using sessions, this prevents subsequent requests
-            // // from hanging while the background process executes
-            // if (session_id()) {
-            //     session_write_close();
-            // }
-                
-            // $res = str_replace(']', '}', $products);
-            // $res2 = str_replace('[', '{', $res);
             
-            // $json = json_encode($res2);
-            
-            // $jsonData = stripslashes($json);
-            
-            // // $str = str_replace('"', '', $jsonData);
-                    
-            // // if the first char is a " then remove it
-            // if(strpos($jsonData,'"')===0)$jsonData=substr($jsonData,1,(strlen($jsonData)-1));
 
-            // // if the last char is a " then remove it
-            // if(strripos($jsonData,'"')===(strlen($jsonData)-1))$jsonData=substr($jsonData,0,-1);
-
-
+            flush();
             $obj = json_decode (json_encode ($products), FALSE);
 
 
             return response($obj,200);
-        // } else {
-
-        //     $mg = [
-        //         "Msg" => "Auth Token Not Valid"
-        //     ];
-
-        //     return response()->json($mg, 400);
-        // }
     }
 
 
@@ -251,6 +176,7 @@ class ProductController extends Controller
                 //     session_write_close();
                 // }
             }
+            flush();
             return response()->json($product);
         }
 
@@ -259,15 +185,8 @@ class ProductController extends Controller
         ];
 
 
-        // ob_flush();
-        // flush();
-        // // if you're using sessions, this prevents subsequent requests
-        // // from hanging while the background process executes
-        // if (session_id()) {
-        //     session_write_close();
-        // }
-
-
+  
+        flush();
         return response()->json($res, 400);
     }
 
@@ -298,104 +217,14 @@ class ProductController extends Controller
                 ];
 
 
-                // // if you're using sessions, this prevents subsequent requests
-                // // from hanging while the background process executes
-                // if (session_id()) {
-                //     session_write_close();
-                // }
-                // ob_flush();
-                // flush();
-                // // if you're using sessions, this prevents subsequent requests
-                // // from hanging while the background process executes
-                // if (session_id()) {
-                //     session_write_close();
-                // }
-
-
+           
+                flush();
                 return ($response);
             }
 
-            // ob_flush();
-            // flush();
-            // // if you're using sessions, this prevents subsequent requests
-            // // from hanging while the background process executes
-            // if (session_id()) {
-            //     session_write_close();
-            // }
-
+            
+            flush();
             return response()->json($products,200);
-        // } else {
-
-        //     $mg = [
-        //         "Msg" => "Auth Token Not Valid"
-        //     ];
-
-        //     return response()->json($mg, 400);
-        // }
+      
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // ! Controllers Not in use for now ----------------------------------------------------------------------------->
-
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Show the form for creating a new resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function create()
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
 }

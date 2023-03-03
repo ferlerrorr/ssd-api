@@ -64,17 +64,13 @@ class AuthController extends Controller
     });  
          
          
-		// ob_flush();
-		// flush();
-		// // if you're using sessions, this prevents subsequent requests
-		// // from hanging while the background process executes
-		// if (session_id()) {session_write_close();}
+		
 
-
+         flush();
          return response()->json([
             ['User Successfully Created'] , ['Please Check Your Email For Verifiation']
          ]);
-        // return response()->json("Basic Email Sent. Check your inbox.");
+        
         
 
     }
@@ -104,7 +100,7 @@ class AuthController extends Controller
 
     if(!$token=auth()->attempt($validator->validated())){
         $erro =  [ ["User Unauthorized"] ];
-
+        // flush();
         return response()->json($erro,400);
 
     }
@@ -118,7 +114,6 @@ class AuthController extends Controller
 
 
         $erro =  [ ["Please check your email for verification"] ];
-
         return response()->json($erro,400);
 
 
@@ -137,12 +132,8 @@ class AuthController extends Controller
             'active_token' => $tok
         ]);
     
-        	// ob_flush();
-        	// flush();
-        	// // if you're using sessions, this prevents subsequent requests
-        	// // from hanging while the background process executes
-        	// if (session_id()) {session_write_close();}
-    
+        	
+      
         if($token=auth() == true){
             auth()->logout();
         }
@@ -180,12 +171,7 @@ class AuthController extends Controller
             'active_token' => $tok
         ]);
     
-        	// ob_flush();
-        	// flush();
-        	// // if you're using sessions, this prevents subsequent requests
-        	// // from hanging while the background process executes
-        	// if (session_id()) {session_write_close();}
-    
+        
         return response()->json($data);
 
     }

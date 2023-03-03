@@ -44,15 +44,7 @@ class ShopifyController extends Controller
         // * $result is a Collection Calling Paginate Script.
         $results = $this->paginate($data);
 		
-		
-		
-		// ob_flush();
-		// flush();
-		// // if you're using sessions, this prevents subsequent requests
-		// // from hanging while the background process executes
-		// if (session_id()) {session_write_close();}
-		
-		
+		flush();
         return response()->json($results);
 
         }else{
@@ -60,12 +52,8 @@ class ShopifyController extends Controller
                 "User" => "Unauthorized"
             ];
             
-            // ob_flush();
-            // flush();
-            // // if you're using sessions, this prevents subsequent requests
-            // // from hanging while the background process executes
-            // if (session_id()) {session_write_close();}
-            
+            flush();
+
             return response()->json($res,400);
         }
 		
@@ -137,13 +125,8 @@ class ShopifyController extends Controller
             'compare_at_price' => $cprice
         ];
 		
-		// ob_flush();
-		// flush();
-		// // if you're using sessions, this prevents subsequent requests
-		// // from hanging while the background process executes
-		// if (session_id()) {session_write_close();}
-			
-	
+		flush();
+		
         //  * Return Response Object -> Json. 
         return response()->json($response);
 		
