@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Signifly\Shopify\Shopify;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -45,14 +44,13 @@ class ShopifyController extends Controller
         $results = $this->paginate($data);
 		
 		//flush();
-        return response()->json($results);
+        return response()->json($results,200);
 
         }else{
             $res = [
                 "User" => "Unauthorized"
             ];
             
-          //  flush();
 
             return response()->json($res,400);
         }
@@ -132,7 +130,7 @@ class ShopifyController extends Controller
 	//	flush();
 		
         //  * Return Response Object -> Json. 
-        return response()->json($response);
+        return response()->json($response , 200);
 		
     }
 

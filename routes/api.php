@@ -28,6 +28,7 @@ Route::get('product/search-products/{slug}','App\Http\Controllers\ProductControl
 
 Route::get('product/search-products/{generic_name}/{product}','App\Http\Controllers\ProductController@search');
 
+Route::get('product/all-generics','App\Http\Controllers\ProductController@generics');
 
 //!Must be Hidden/Admin Route 
 Route::group(['middleware'=>'api','prefix'=>'admin'],function($router){
@@ -67,15 +68,6 @@ Route::group(['middleware'=>'api','prefix'=>'admin'],function($router){
 });
 
 
-
-
-
-
- 
-    // ------------SSDController----------------
-    // Route::resource('/ssd/allproducts', App\Http\Controllers\SSDController::class)->only([
-    //     'index'
-    // ]);
     
 
 

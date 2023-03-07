@@ -66,10 +66,9 @@ class AuthController extends Controller
          
 		
 
-         flush();
          return response()->json([
             ['User Successfully Created'] , ['Please Check Your Email For Verifiation']
-         ]);
+         ],200);
         
         
 
@@ -100,7 +99,6 @@ class AuthController extends Controller
 
     if(!$token=auth()->attempt($validator->validated())){
         $erro =  [ ["User Unauthorized"] ];
-        // flush();
         return response()->json($erro,400);
 
     }
@@ -148,14 +146,14 @@ class AuthController extends Controller
             // return response()->json($validator->errors()->toJson(),422);
             $invalid_fields = array_values($validator->errors()->toArray());
             return response($invalid_fields,400);
-        	//will return 200 ok if flushed
+
         }
           
       
     
         if(!$token=auth()->attempt($validator->validated())){
             return response()->json(['error'=>'Unauthorized'],401);
-        	//will return 200 ok if flushed
+
         }
               
        
@@ -172,7 +170,7 @@ class AuthController extends Controller
         ]);
     
         
-        return response()->json($data);
+        return response()->json($data,200);
 
     }
     }
@@ -224,7 +222,7 @@ class AuthController extends Controller
         auth()->logout();
         return response()->json([
             'msg' => 'User Logout'
-         ]);
+         ],200);
     }
 
 

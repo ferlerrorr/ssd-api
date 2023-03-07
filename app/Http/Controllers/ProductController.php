@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Products;
-use App\Jobs\Flushed;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -20,7 +19,7 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api',['except'=>['show']]);
+        $this->middleware('auth:api',['except'=>['show','generics']]);
         // $this->middleware('auth:api');
     }
 
@@ -54,13 +53,11 @@ class ProductController extends Controller
 
 
        
-            Flushed::dispatchAfterResponse();
-            return response()->json($products);
+            return response()->json($products,200);
         } else {
             $res = [
                 "erro" => "User Unauthorized"
             ];
-            Flushed::dispatchAfterResponse();
             return response()->json($res, 400);
         }
 
@@ -115,13 +112,12 @@ class ProductController extends Controller
 
                 ];
 
-                Flushed::dispatchAfterResponse();
+
                 return response()->json($response,400);
             }
 
             
 
-            Flushed::dispatchAfterResponse();
             $obj = json_decode (json_encode ($products), FALSE);
 
 
@@ -168,18 +164,10 @@ class ProductController extends Controller
             ]);
 
             // * if OK save
-            if ($product->save()) {
+            $product->save();
 
-                // ob_flush();
-                // flush();
-                // // if you're using sessions, this prevents subsequent requests
-                // // from hanging while the background process executes
-                // if (session_id()) {
-                //     session_write_close();
-                // }
-            }
-            Flushed::dispatchAfterResponse();
-            return response()->json($product);
+        
+            return response()->json($product,200);
         }
 
         $res = [
@@ -187,8 +175,6 @@ class ProductController extends Controller
         ];
 
 
-  
-        Flushed::dispatchAfterResponse();
         return response()->json($res, 400);
     }
 
@@ -218,16 +204,41 @@ class ProductController extends Controller
 
                 ];
 
-                    
                 
-                Flushed::dispatchAfterResponse();
                 return response()->json($response,400);
             }
 
 
-            
-            Flushed::dispatchAfterResponse();
             return response()->json($products,200);
       
     }
+
+    public function generics()
+    {
+    
+         $generics = Products::select('generic_name')->distinct()->get();
+          
+            if ($generics->isEmpty()) {
+
+                $response =  [
+
+                    ['error' => 'Not Found']
+
+                ];
+
+                
+                return response()->json($response,400);
+            }
+
+        
+            
+            foreach($generics as $generic) {
+            
+              $dd[] =  $generic->generic_name;
+            }
+
+            return response()->json($dd,200);
+      
+    }
+
 }

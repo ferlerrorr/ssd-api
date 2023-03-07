@@ -43,12 +43,7 @@ class OrderController extends Controller
             "Msg" => "User Unauthorized"
         ];
 
-       // flush();
-        // if you're using sessions, this prevents subsequent requests
-        // from hanging while the background process executes
-        if (session_id()) {
-            session_write_close();
-        }
+       
         return response()->json($res, 400);
     }
     }
@@ -117,7 +112,6 @@ class OrderController extends Controller
                 'provider.*'  => 'nullable|string',
             ]);
             if ($validator->fails()) {
-               // flush();
                 return response()->json($validator->errors(), 400);
             }
 
@@ -228,9 +222,6 @@ class OrderController extends Controller
 
             $orders->save();
 
-
-
-           // flush();
             return response()->json($response, 200);
         } else {
 
@@ -238,8 +229,6 @@ class OrderController extends Controller
                 "Msg" => "Auth Token Not Valid"
             ];
 
-
-          // flush();
             return response()->json($mg, 400);
         }
     }
