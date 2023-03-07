@@ -31,19 +31,19 @@ class OrderController extends Controller
     public function index()
     {
         $admin = auth()->user()->permission;
-        if ($admin === 1) {
+        if ($admin === "tadminuser") {
         $orders = Orders::all();
         $od = json_decode($orders);
         $response = $this->paginate($od);
 
-        flush();
+        // flush();
         return response()->json($response, 200);
     } else {
         $res = [
             "Msg" => "User Unauthorized"
         ];
 
-        flush();
+       // flush();
         // if you're using sessions, this prevents subsequent requests
         // from hanging while the background process executes
         if (session_id()) {
@@ -51,14 +51,9 @@ class OrderController extends Controller
         }
         return response()->json($res, 400);
     }
-
-
-
     }
 
-
-
-
+    
    /**
      ! Pagination Scripts Function For Shopify
      * Paginate the Shopipy store resource result by (n) .
@@ -73,10 +68,6 @@ class OrderController extends Controller
         return new LengthAwarePaginator(array_values($items->forPage($page, $perPage)
             ->toArray()), $items->count(), $perPage, $page, $options);
     }
-
-
-
-
 
 
 
@@ -126,7 +117,7 @@ class OrderController extends Controller
                 'provider.*'  => 'nullable|string',
             ]);
             if ($validator->fails()) {
-                flush();
+               // flush();
                 return response()->json($validator->errors(), 400);
             }
 
@@ -239,7 +230,7 @@ class OrderController extends Controller
 
 
 
-            flush();
+           // flush();
             return response()->json($response, 200);
         } else {
 
@@ -248,7 +239,7 @@ class OrderController extends Controller
             ];
 
 
-            flush();
+          // flush();
             return response()->json($mg, 400);
         }
     }

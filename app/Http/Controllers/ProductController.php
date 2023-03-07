@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\Products;
+use App\Jobs\Flushed;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -38,7 +40,7 @@ class ProductController extends Controller
 
         // if($beartoken == "Bearer $actvtoken"){
 
-        if ($admin === 1) {
+        if ($admin === "tadminuser") {
 
 
             /*   ! For Development Purpose. 
@@ -52,13 +54,13 @@ class ProductController extends Controller
 
 
        
-            flush();
+            Flushed::dispatchAfterResponse();
             return response()->json($products);
         } else {
             $res = [
-                "Msg" => "User Unauthorized"
+                "erro" => "User Unauthorized"
             ];
-            flush();
+            Flushed::dispatchAfterResponse();
             return response()->json($res, 400);
         }
 
@@ -109,17 +111,17 @@ class ProductController extends Controller
 
                 $response =  [
 
-                    ['Msg' => 'Product Not Found']
+                    ['error' => 'Product Not Found']
 
                 ];
 
-                flush();
-                return ($response);
+                Flushed::dispatchAfterResponse();
+                return response()->json($response,400);
             }
 
             
 
-            flush();
+            Flushed::dispatchAfterResponse();
             $obj = json_decode (json_encode ($products), FALSE);
 
 
@@ -138,7 +140,7 @@ class ProductController extends Controller
     {
 
         $admin = auth()->user()->permission;
-        if ($admin === 1) {
+        if ($admin === "tadminuser") {
             // * Input Parameters = Asigned Variable
             $generic_name = $request->input('generic_name');
             $grams = $request->input('grams');
@@ -176,17 +178,17 @@ class ProductController extends Controller
                 //     session_write_close();
                 // }
             }
-            flush();
+            Flushed::dispatchAfterResponse();
             return response()->json($product);
         }
 
         $res = [
-            "User" => "Unauthorized"
+            "error" => "User Unauthorized"
         ];
 
 
   
-        flush();
+        Flushed::dispatchAfterResponse();
         return response()->json($res, 400);
     }
 
@@ -212,18 +214,19 @@ class ProductController extends Controller
 
                 $response =  [
 
-                    ['Msg' => 'Product Not Found']
+                    ['error' => 'Product Not Found']
 
                 ];
 
-
-           
-                flush();
-                return ($response);
+                    
+                
+                Flushed::dispatchAfterResponse();
+                return response()->json($response,400);
             }
 
+
             
-            flush();
+            Flushed::dispatchAfterResponse();
             return response()->json($products,200);
       
     }

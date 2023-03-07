@@ -29,7 +29,7 @@ class ShopifyController extends Controller
     {
         $admin = auth()->user()->permission; 
         
-        if($admin == 1){
+        if($admin === "tadminuser"){
 
         // * Query All Products Limit by 250 - which is the maximum product shopify can produce.
         $pages = $shopify->paginateProducts(['limit' => 250]); // * returns Cursor.
@@ -44,7 +44,7 @@ class ShopifyController extends Controller
         // * $result is a Collection Calling Paginate Script.
         $results = $this->paginate($data);
 		
-		flush();
+		//flush();
         return response()->json($results);
 
         }else{
@@ -52,7 +52,7 @@ class ShopifyController extends Controller
                 "User" => "Unauthorized"
             ];
             
-            flush();
+          //  flush();
 
             return response()->json($res,400);
         }
@@ -92,7 +92,11 @@ class ShopifyController extends Controller
 
         //  * Get Product Variant First key[0]. 
         $variant = $product->variants[0];
-        $images = $product->image['src'];
+        $images = $product->images;
+
+        $imgs = array_map(function($o) { return $o["src"];}, $images);
+
+
         //  * Get Product Variant id. 
         $variant_id = $variant['id'];
 
@@ -117,7 +121,7 @@ class ShopifyController extends Controller
 
          // Response Object. 
         $response = [
-            'image' => $images,
+            'images' => $imgs,
             'product_name' => $product_name,
             'variant_id' => $variant_id,
             'inventory_quantity' => $inventory_quantity,
@@ -125,7 +129,7 @@ class ShopifyController extends Controller
             'compare_at_price' => $cprice
         ];
 		
-		flush();
+	//	flush();
 		
         //  * Return Response Object -> Json. 
         return response()->json($response);

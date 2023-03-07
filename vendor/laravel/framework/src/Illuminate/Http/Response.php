@@ -105,4 +105,5 @@ class Response extends SymfonyResponse
 
         return json_encode($content);
     }
+
 }
