@@ -98,7 +98,8 @@ class ProductController extends Controller
                 ->orWhere('keywords', 'LIKE', "%$slug%")   
                 ->orWhere('category', 'LIKE', "%$slug%") 
                 ->orWhere('grams', 'LIKE', "%$slug%")
-                // ->orWhere('product_name', 'LIKE', "%$slug%")
+                ->orWhere('product_name', 'LIKE', "%$slug%")
+                ->orWhere('product_name', 'LIKE', "%$slug%")
                 ->orderBy('level', 'DESC')->limit(3)
                 ->get();
 
