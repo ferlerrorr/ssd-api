@@ -45,17 +45,23 @@ services:
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
-            timeout: 5s
+            timeout: 5
 
     phpmyadmin:
         image: phpmyadmin:5.2.0-apache
         ports:
             - 8081:80
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            PMA_HOST: mysql
+            PMA_USER: '${DB_USERNAME}'
+            PMA_PASSWORD: '${DB_PASSWORD}'
+            UPLOAD_LIMIT: 300M
         networks:
             - sail22
-        environment:
-            - PMA_ARBITRARY=1
-    
+        depends_on:
+            - mysql
+
 networks:
     sail22:
         driver: bridge

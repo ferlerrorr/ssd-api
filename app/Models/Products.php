@@ -18,7 +18,7 @@ class Products extends Model
     //!Public Data
     protected $fillable = ['generic_name','grams','product_name','category','product_id','variant_id','price','compare_at_price','level','keywords'];
     //!Hidden Data
-    protected $hidden = ['keywords','created_at','updated_at','compare_at_price','level','id'];
+    protected $hidden = ['keywords','created_at','updated_at','compare_at_price','level','id' ,'price'];
 
 }
 
