@@ -45,7 +45,7 @@ services:
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
-            timeout: 5
+            timeout: 5s
 
     phpmyadmin:
         image: phpmyadmin:5.2.0-apache

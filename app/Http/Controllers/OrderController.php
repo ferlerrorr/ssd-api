@@ -122,10 +122,10 @@ class OrderController extends Controller
             // ! Data Filter for Shopify Order Request - Draft Character
             $order = $request->except('customer_name', 'gender', 'date_of_birth', 'email', 'contact_number', 'address', 'doctor_details', 'provider');
             // // // ! Shopify Order Request
-            $data =  $shopify->post('draft_orders.json', $order);
+           // $data =  $shopify->post('draft_orders.json', $order);
             // // $response = ($request.' '.$data);
             // // $invoice_url = $data['draft_order']['invoice_url'];
-            $draft_order_id =  $data['draft_order']['id'];
+           // $draft_order_id =  $data['draft_order']['id'];
 
 
             //! Data Filter for Shopify Order Request  - Draft Character
@@ -156,7 +156,7 @@ class OrderController extends Controller
             $strserial1 = str_replace(']', '', $str);
             $strserial2 = str_replace('[', '', $strserial1);
 
-            $url = "https://ssd-api.myshopify.com/cart/" . $strserial2 . "?note=" . $note . "," . "draft_order_id=" . $draft_order_id;
+            $url = "https://ssd-api.myshopify.com/cart/" . $strserial2 . "?note=" . $note;
 
 
 
