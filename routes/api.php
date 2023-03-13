@@ -53,7 +53,7 @@ Route::group(['middleware'=>'api','prefix'=>'admin'],function($router){
     Route::group(['middleware'=>'api','prefix'=>'auth'],function($router){
     Route::post('/register',[AuthController::class,'register']);
     Route::post('/token-access',[AuthController::class,'token']);
-    Route::post('/logout',[AuthController::class,'logout']);
+    Route::post('/reclaim',[AuthController::class,'logout']);
     Route::get('/verify/{email}',[AuthController::class,'verify']);
     // Route::get('/profile',[AuthController::class,'profile']);
    

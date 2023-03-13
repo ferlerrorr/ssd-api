@@ -7,6 +7,9 @@ use Signifly\Shopify\Shopify;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use PhpParser\Node\Stmt\Return_;
+
+use function PHPSTORM_META\type;
 
 class ShopifyController extends Controller
 {
@@ -90,6 +93,7 @@ class ShopifyController extends Controller
 
         //  * Get Product Variant First key[0]. 
         $variant = $product->variants[0];
+
         $images = $product->images;
 
         $imgs = array_map(function($o) { return $o["src"];}, $images);

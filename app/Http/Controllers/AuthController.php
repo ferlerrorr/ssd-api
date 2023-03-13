@@ -221,7 +221,7 @@ class AuthController extends Controller
         ]);
         auth()->logout();
         return response()->json([
-            'msg' => 'User Logout'
+            'message' => 'Token Recalimed'
          ],200);
     }
 

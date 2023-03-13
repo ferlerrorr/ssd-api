@@ -56,7 +56,7 @@ class ProductController extends Controller
             return response()->json($products,200);
         } else {
             $res = [
-                "erro" => "User Unauthorized"
+                "error" => "User Unauthorized"
             ];
             return response()->json($res, 400);
         }
@@ -223,7 +223,7 @@ class ProductController extends Controller
 
                 $response =  [
 
-                    ['error' => 'Not Found']
+                    ['error' => 'Product Not Found']
 
                 ];
 

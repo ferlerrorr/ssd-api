@@ -61,6 +61,14 @@ class Handler extends ExceptionHandler
                 ],404);
             }
             
+
+
+            elseif(get_class($exception) == "Signifly\\Shopify\\Exceptions\\NotFoundException"){
+                return response()->json([
+                    'message' => "Resource not found"
+                ],404);
+            }
+
             else{
 
                 return response()->json([
